@@ -24,10 +24,6 @@ document.addEventListener("DOMContentLoaded", function () {
         return;
     }
 
-    /* =========================================
-       HERO IMAGE LOADING
-    ========================================= */
-
     const heroImages =
         swiperElement.querySelectorAll("img");
 
@@ -70,10 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    /* =========================================
-       HERO SWIPER
-    ========================================= */
-
     new Swiper(swiperElement, {
         direction: "horizontal",
         effect: "slide",
@@ -95,11 +87,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         grabCursor: true
     });
-
-
-    /* =========================================
-       GALLERY IMAGE LOADING
-    ========================================= */
 
     const galleryImages =
         document.querySelectorAll(
