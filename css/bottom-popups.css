@@ -1,0 +1,444 @@
+.cookies-popup {
+        position: fixed;
+        bottom: -100%;
+        left: 0;
+        right: 0;
+        background: #004370;
+        color: white;
+        padding: 20px;
+        z-index: 9999;
+        box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+        transition: bottom 0.5s ease;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    .cookies-popup.active {
+        bottom: 0;
+    }
+
+    .cookies-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .cookies-content h3 {
+        font-size: 18px;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+    }
+
+    .cookies-content p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.9);
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .cookies-content a {
+        color: #009B5B;
+        text-decoration: underline;
+        transition: color 0.3s;
+    }
+
+    .cookies-content a:hover {
+        color: #00cc78;
+    }
+
+    .cookies-buttons {
+        display: flex;
+        gap: 10px;
+        flex-shrink: 0;
+    }
+
+    .cookies-btn {
+        padding: 10px 20px;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+        min-width: 120px;
+    }
+
+    .cookies-btn.accept {
+        background: #009B5B;
+        color: white;
+    }
+
+    .cookies-btn.accept:hover {
+        background: #007a48;
+        transform: translateY(-2px);
+    }
+
+    .cookies-btn.decline {
+        background: rgba(255, 255, 255, 0.1);
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .cookies-btn.decline:hover {
+        background: rgba(255, 255, 255, 0.2);
+    }
+
+    .cookies-btn.settings {
+        background: transparent;
+        color: white;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .cookies-btn.settings:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .cookies-modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.7);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 10000;
+        padding: 20px;
+        backdrop-filter: blur(5px);
+    }
+
+    .cookies-modal-overlay.active {
+        display: flex;
+    }
+
+    .cookies-modal {
+        background: white;
+        border-radius: 12px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 80vh;
+        overflow-y: auto;
+        animation: slideUp 0.3s ease;
+    }
+
+    .cookies-modal-header {
+        padding: 25px 30px 15px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .cookies-modal-header h3 {
+        font-size: 22px;
+        color: #004370;
+        margin: 0 0 10px;
+    }
+
+    .cookies-modal-header p {
+        color: #64748b;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .close-cookies-modal {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        background: rgba(255, 255, 255, 0.2);
+        border: none;
+        color: #004370;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 18px;
+        transition: background 0.3s;
+    }
+
+    .close-cookies-modal:hover {
+        background: #f8fafc;
+    }
+
+    .cookies-modal-body {
+        padding: 20px 30px;
+    }
+
+    .cookies-option {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 0;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .cookies-option:last-child {
+        border-bottom: none;
+    }
+
+    .option-info h4 {
+        font-size: 16px;
+        color: #334155;
+        margin: 0 0 5px;
+    }
+
+    .option-info p {
+        font-size: 13px;
+        color: #64748b;
+        margin: 0;
+        line-height: 1.4;
+    }
+
+    .cookies-toggle {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 26px;
+    }
+
+    .cookies-toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .cookies-toggle-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #cbd5e1;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .cookies-toggle-slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+        border-radius: 50%;
+    }
+
+    input:checked + .cookies-toggle-slider {
+        background-color: #009B5B;
+    }
+
+    input:checked + .cookies-toggle-slider:before {
+        transform: translateX(24px);
+    }
+
+    .cookies-modal-footer {
+        padding: 20px 30px;
+        background: #f8fafc;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: flex-end;
+        gap: 10px;
+    }
+
+    @media (max-width: 768px) {
+        .cookies-popup {
+            flex-direction: column;
+            padding: 15px;
+            text-align: center;
+        }
+        
+        .cookies-buttons {
+            width: 100%;
+            flex-direction: column;
+        }
+        
+        .cookies-btn {
+            width: 100%;
+        }
+        
+        .cookies-modal {
+            max-height: 90vh;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .cookies-content h3 {
+            font-size: 16px;
+        }
+        
+        .cookies-content p {
+            font-size: 13px;
+        }
+    }
+
+
+.bottom-ozow-advert {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: auto;
+    min-height: 20vh;
+    max-height: 40vh;
+    background: linear-gradient(135deg, #004370, #00609c);
+    color: white;
+    z-index: 9998;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.2);
+    transition: bottom 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.bottom-ozow-advert.active {
+    bottom: 0;
+}
+
+.bottom-ozow-content {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.ozow-left {
+    flex-shrink: 0;
+    padding: 10px;
+}
+
+.ozow-bottom-logo {
+    width: 120px;
+    height: auto;
+    filter: brightness(0) invert(1);
+}
+
+.ozow-right {
+    flex: 1;
+}
+
+.ozow-right h3 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.ozow-right p {
+    font-size: 14px;
+    opacity: 0.9;
+    margin-bottom: 10px;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.ozow-bottom-features {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.ozow-bottom-features span {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.ozow-bottom-features i {
+    font-size: 11px;
+}
+
+.close-bottom-ozow {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.close-bottom-ozow:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+@media (max-width: 768px) {
+    .bottom-ozow-advert {
+        min-height: 25vh;
+        padding: 15px;
+    }
+    
+    .bottom-ozow-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .ozow-right h3 {
+        font-size: 18px;
+    }
+    
+    .ozow-right p {
+        font-size: 13px;
+    }
+    
+    .ozow-bottom-features {
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .ozow-bottom-features span {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+    
+    .close-bottom-ozow {
+        top: 5px;
+        right: 5px;
+        width: 25px;
+        height: 25px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bottom-ozow-advert {
+        min-height: 30vh;
+    }
+    
+    .ozow-bottom-logo {
+        width: 100px;
+    }
+    
+    .ozow-right h3 {
+        font-size: 16px;
+    }
+    
+    .ozow-bottom-features {
+        flex-direction: column;
+        align-items: center;
+    }
+}

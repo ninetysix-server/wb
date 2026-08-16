@@ -1,0 +1,275 @@
+.footer-section {
+    width: 100%;
+    max-width: 1400px;
+    margin: 60px auto 20px;
+    padding: 0 20px;
+}
+
+.footer-container {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 40px;
+    color: white;
+}
+
+.footer-content {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 40px;
+}
+
+.footer-logo {
+    flex: 1;
+}
+
+.footer-logo-img {
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+.footer-logo p {
+    color: #cbd5e1;
+    font-size: 14px;
+    line-height: 1.6;
+    max-width: 300px;
+}
+
+.footer-links {
+    flex: 2;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+}
+
+.footer-column h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 12px;
+    color: #cbd5e1;
+    font-size: 14px;
+}
+
+.footer-column a {
+    color: #cbd5e1;
+    text-decoration: none !important;
+    transition: color 0.3s;
+}
+
+.footer-column a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+.footer-column i {
+    margin-right: 8px;
+    color: var(--accent);
+    width: 16px;
+}
+
+.footer-bottom {
+    display: flex;
+    align-items: center;
+    padding-top: 30px;
+    border-top: 1px solid #334155;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.payment-logos {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.payment-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 92px;
+    height: 48px;
+    padding: 2px 12px;
+
+    border-radius: 9px;
+
+    background: #ffffff00;
+
+
+}
+
+.payment-logo {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.copyright {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-left: auto;
+}
+
+.scroll-top {
+    position: fixed;
+    visibility: hidden;
+    opacity: 0;
+    right: 44px;
+    bottom: 130px;
+    z-index: 999;
+    background-color: var(--primary);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.scroll-top i {
+    font-size: 24px;
+}
+
+.scroll-top:hover {
+    background-color: #003258;
+    transform: translateY(-3px);
+}
+
+.scroll-top.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.whatsapp-btn {
+    position: fixed;
+    right: 44px;
+    bottom: 50px;
+    z-index: 998;
+    width: 50px;
+    height: 50px;
+    background-color: #25D366;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.whatsapp-btn .icon {
+    width: 28px;
+    height: 28px;
+}
+
+.wishlist-counter {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 50%;
+}
+
+@media (max-width: 992px) {
+    .footer-content {
+        flex-direction: column;
+        gap: 40px;
+    }
+    .footer-links {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .footer-logo p {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-container {
+        padding: 30px;
+    }
+    .footer-links {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .footer-bottom {
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        text-align: center;
+    }
+    .payment-logos {
+            order: 1;
+            justify-content: center;
+        }
+    .copyright {
+        order: 2;
+        margin-left: 0;
+    }
+    .footer-section {
+        margin: 60px auto 90px;
+    }
+    .scroll-top {
+        right: 20px;
+        bottom: 170px;
+        width: 50px;
+        height: 50px;
+    }
+    .whatsapp-btn {
+        right: 20px;
+        bottom: 90px;
+        width: 52px;
+        height: 52px;
+    }
+    .whatsapp-btn .icon {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-logos {
+        gap: 7px;
+    }
+
+    .payment-logo-wrapper {
+        width: 82px;
+        height: 44px;
+        padding: 7px 10px;
+    }
+}
+
+.footer-bottom .social-icon {
+    width: 34px;
+    height: 34px;
+    flex-basis: 34px;
+
+    border: 2px solid #64748b;
+    border-radius: 50%;
+
+    background: #00000000;
+    color: #ffffff;
+
+    font-size: 13px;
+}
+
+.footer-bottom .social-icon:hover {
+    border-color: #ffffff00;
+    background: #02253d;
+    color: #ffffff;
+}

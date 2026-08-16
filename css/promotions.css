@@ -1,0 +1,444 @@
+.promotions-section {
+    width: 100%;
+    padding: 72px 20px;
+    background: #f6f8fb;
+}
+
+.promotions-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.promotions-heading {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 32px;
+}
+
+.promotions-heading-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex: 0 0 38px;
+
+    border-radius: 11px;
+    background: #d5f8fc;
+}
+
+.promotions-heading-mark span {
+    position: relative;
+    width: 15px;
+    height: 15px;
+
+    border: 2px solid #08a9c7;
+    border-radius: 3px;
+
+    transform: rotate(45deg);
+}
+
+.promotions-heading-mark span::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+
+    width: 3px;
+    height: 3px;
+
+    border-radius: 50%;
+    background: #08a9c7;
+}
+
+.promotions-heading-text h2 {
+    margin: 0 0 3px;
+    color: #07162d;
+    font-size: 25px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+.promotions-heading-text p {
+    margin: 0;
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.promotions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+
+.promotion-card {
+    position: relative;
+    min-height: 235px;
+    overflow: hidden;
+    isolation: isolate;
+
+    display: flex;
+    align-items: stretch;
+
+    border-radius: 17px;
+
+    color: #ffffff;
+
+}
+
+.promotion-card-content {
+    position: relative;
+    z-index: 3;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+    padding: 29px 28px;
+}
+
+.promotion-card-decoration {
+    position: absolute;
+    z-index: 1;
+    right: -38px;
+    bottom: -95px;
+
+    width: 210px;
+    height: 210px;
+
+    border: 34px solid rgba(255, 255, 255, 0.055);
+    border-radius: 50%;
+}
+
+.promotion-card-decoration::after {
+    content: "";
+    position: absolute;
+    top: 26px;
+    left: 26px;
+
+    width: 90px;
+    height: 90px;
+
+    border: 25px solid rgba(255, 255, 255, 0.045);
+    border-radius: 50%;
+}
+
+.designmore-promotion {
+    background:
+        linear-gradient(
+            135deg,
+            #047e91 0%,
+            #096b80 58%,
+            #165267 100%
+        );
+}
+
+.ozow-promotion {
+    background:
+        linear-gradient(
+            135deg,
+            #1c283d 0%,
+            #222e43 55%,
+            #172238 100%
+        );
+}
+
+.sale-promotion {
+    background:
+        linear-gradient(
+            135deg,
+            #183f56 0%,
+            #224d64 55%,
+            #183c51 100%
+        );
+}
+
+.promotion-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 18px;
+    padding: 6px 12px;
+
+    border-radius: 999px;
+
+    color: #07162d;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.025em;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.promotion-badge-new {
+    background: #22d3ee;
+}
+
+.promotion-badge-fast {
+    background: #8b5cf6;
+    color: #ffffff;
+}
+
+.promotion-badge-sale {
+    background: #ff7272;
+    color: #5c1111;
+}
+
+.promotion-eyebrow {
+    display: block;
+    margin-bottom: 5px;
+
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.promotion-card h3 {
+    margin: 0 0 7px;
+
+    color: #ffffff;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.promotion-card p {
+    max-width: 85%;
+    margin: 0 0 19px;
+
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.promotion-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    margin-top: auto;
+
+    color: #ffffff;
+    font-size: 13px;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.promotion-action::before {
+    content: "";
+    width: 8px;
+    height: 13px;
+
+    border: 2px solid #55ecff;
+    border-top: none;
+    border-bottom: none;
+
+    transform: skewX(-24deg);
+}
+
+.promotion-arrow {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 400;
+
+    transition: transform 0.2s ease;
+}
+
+.designmore-card-image {
+    position: absolute;
+    z-index: 2;
+    right: 18px;
+    bottom: 17px;
+
+    width: 105px;
+    max-height: 105px;
+
+    object-fit: contain;
+    object-position: center;
+
+    opacity: 0.94;
+
+    pointer-events: none;
+
+    transition:
+        transform 0.35s ease,
+        opacity 0.35s ease;
+}
+
+.ozow-card-logo {
+    position: absolute;
+    z-index: 2;
+    right: 22px;
+    bottom: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100px;
+    height: 56px;
+    padding: 10px 13px;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0);
+
+}
+
+.ozow-card-logo img {
+    display: block;
+    width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.sale-card-amount {
+    position: absolute;
+    z-index: 2;
+    right: 25px;
+    bottom: 18px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    color: rgba(255, 255, 255, 0.12);
+
+    pointer-events: none;
+}
+
+.sale-card-amount strong {
+    font-size: 67px;
+    font-weight: 900;
+    line-height: 0.9;
+    letter-spacing: -0.06em;
+}
+
+.sale-card-amount span {
+    margin-top: 3px;
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.16em;
+}
+
+@media (max-width: 1050px) {
+    .promotions-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .sale-promotion {
+        grid-column: 1 / -1;
+    }
+
+    .promotion-card p {
+        max-width: 78%;
+    }
+}
+
+@media (max-width: 700px) {
+    .promotions-section {
+        padding: 50px 15px;
+    }
+
+    .promotions-heading {
+        margin-bottom: 24px;
+    }
+
+    .promotions-heading-text h2 {
+        font-size: 22px;
+    }
+
+    .promotions-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .sale-promotion {
+        grid-column: auto;
+    }
+
+    .promotion-card {
+        min-height: 245px;
+    }
+
+    .promotion-card-content {
+        padding: 26px 23px;
+    }
+
+    .promotion-card p {
+        max-width: 78%;
+    }
+}
+
+@media (max-width: 430px) {
+    .promotions-section {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .promotions-heading {
+        align-items: flex-start;
+    }
+
+    .promotions-heading-mark {
+        width: 35px;
+        height: 35px;
+        flex-basis: 35px;
+    }
+
+    .promotions-heading-text h2 {
+        font-size: 20px;
+    }
+
+    .promotions-heading-text p {
+        max-width: 260px;
+        font-size: 12px;
+    }
+
+    .promotion-card {
+        min-height: 260px;
+    }
+
+    .promotion-card-content {
+        padding: 24px 20px;
+    }
+
+    .promotion-card h3 {
+        font-size: 20px;
+    }
+
+    .promotion-card p {
+        max-width: 100%;
+        padding-right: 55px;
+    }
+
+    .designmore-card-image {
+        right: 13px;
+        bottom: 13px;
+        width: 80px;
+        max-height: 80px;
+    }
+
+    .ozow-card-logo {
+        right: 14px;
+        bottom: 15px;
+        width: 86px;
+        height: 48px;
+    }
+
+    .sale-card-amount {
+        right: 18px;
+        bottom: 17px;
+    }
+
+    .sale-card-amount strong {
+        font-size: 54px;
+    }
+}

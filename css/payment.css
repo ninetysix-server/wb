@@ -1,0 +1,245 @@
+.payment-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8fafc;
+    padding: 20px;
+}
+
+.payment-card {
+    width: 100%;
+    max-width: 500px;
+    background: white;
+    border-radius: 0px;
+    overflow: hidden;
+}
+
+.payment-header {
+    background: linear-gradient(135deg, #004370, #00609c);
+    padding: 30px 30px 25px;
+    text-align: center;
+    color: white;
+}
+
+.payment-logo {
+    height: 30px;
+    margin-bottom: 15px;
+}
+
+.payment-header h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.payment-header p {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.payment-body {
+    padding: 30px;
+}
+
+.payment-message {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.payment-message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
+}
+
+.payment-message.success {
+    background: #d1fae5;
+    color: #065f46;
+    border: 1px solid #a7f3d0;
+}
+
+.order-summary {
+    background: #f8fafc;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.order-summary h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #004370;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.order-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #64748b;
+}
+
+.order-row span:last-child {
+    font-weight: 600;
+    color: #334155;
+}
+
+.payment-items {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+.payment-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid #f1f5f9;
+    font-size: 13px;
+}
+
+.payment-item-name {
+    flex: 1;
+    font-weight: 500;
+    color: #334155;
+}
+
+.payment-item-details {
+    color: #64748b;
+    font-size: 12px;
+    margin: 0 10px;
+}
+
+.payment-item-price {
+    font-weight: 600;
+    color: #009B5B;
+}
+
+.order-total {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 15px;
+    margin-top: 15px;
+    border-top: 2px solid #e2e8f0;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.order-total span:last-child {
+    color: #009B5B;
+}
+
+.payment-security {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 16px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+.payment-security i {
+    color: #10b981;
+    font-size: 18px;
+}
+
+.payment-loading {
+    text-align: center;
+    padding: 20px;
+}
+
+.payment-loading .spinner {
+    margin: 0 auto 16px;
+}
+
+.payment-loading p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.payment-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.payment-btn {
+    flex: 1;
+    padding: 14px 20px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.payment-btn.primary {
+    background: linear-gradient(135deg, #009B5B, #007a48);
+    color: white;
+}
+
+.payment-btn.secondary {
+    background: #f8fafc;
+    color: #475569;
+    border: 2px solid #e2e8f0;
+}
+
+.payment-btn.secondary:hover {
+    background: #e2e8f0;
+}
+
+.payment-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.payment-methods {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+}
+
+.payment-methods p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-bottom: 10px;
+}
+
+.payment-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 24px;
+    color: #94a3b8;
+}
+
+@media (max-width: 480px) {
+    .payment-body {
+        padding: 20px;
+    }
+    .payment-actions {
+        flex-direction: column;
+    }
+    .payment-btn {
+        width: 100%;
+    }
+}
