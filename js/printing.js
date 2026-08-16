@@ -10,7 +10,7 @@ export const printingServices = [
             "Professional display banners for events, promotions, exhibitions, retail spaces and branded environments.",
         price: "From R800.00",
         image:
-            "assets/images/pri-s/bn.png",
+            "/assets/images/pri-s/bn.png",
 
         steps: [
             {
