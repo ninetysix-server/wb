@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment - 96 Studios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/payment.css" />
+</head>
+<body>
+    <div class="payment-container">
+        <div class="payment-card">
+            <div class="payment-header">
+                <img src="./assets/images/logo.svg" alt="96 Studios" class="payment-logo" />
+                <h1>Secure Payment</h1>
+                <p>Complete your payment securely with Ozow</p>
+            </div>
+            
+            <div class="payment-body">
+                <div id="paymentError" class="payment-message error" style="display:none;"></div>
+                <div id="paymentSuccess" class="payment-message success" style="display:none;"></div>
+                
+                <div class="order-summary">
+                    <h3><i class="fas fa-receipt"></i> Order Summary</h3>
+                    <div class="order-row">
+                        <span>Order ID</span>
+                        <span id="orderId">Loading...</span>
+                    </div>
+                    <div class="order-row">
+                        <span>Items</span>
+                        <span id="orderItems">Loading...</span>
+                    </div>
+                    <ul id="paymentItemsList" class="payment-items"></ul>
+                    <div class="order-total">
+                        <span>Total</span>
+                        <span id="orderTotal">R0.00</span>
+                    </div>
+                </div>
+                
+                <div class="payment-security">
+                    <i class="fas fa-lock"></i>
+                    <span>Your payment is secured with SSL encryption</span>
+                </div>
+                
+                <div id="paymentLoading" class="payment-loading" style="display:none;">
+                    <div class="spinner"></div>
+                    <p>Preparing your payment...</p>
+                    <p style="font-size: 12px; color: #64748b; margin-top: 8px;">You will be redirected to Ozow's secure payment page</p>
+                </div>
+                
+                <div class="payment-actions">
+                    <button id="cancelPaymentBtn" class="payment-btn secondary">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button id="payNowBtn" class="payment-btn primary">
+                          Pay with ozow
+                    </button>
+                </div>
+                
+                <div class="payment-methods">
+                    <p>Secure payment methods</p>
+                    <div class="payment-icons">
+                        <i class="fas fa-credit-card" title="Credit/Debit Card"></i>
+                        <i class="fas fa-university" title="Bank Transfer"></i>
+                        <i class="fas fa-mobile-alt" title="Mobile Payment"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script type="module" src="./js/supabase.js"></script>
+    <script type="module" src="./js/payment.js"></script>
+</body>
+</html>

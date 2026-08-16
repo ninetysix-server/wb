@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Error - 96 Studios</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <style>
+        .error-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8fafc;
+            padding: 20px;
+        }
+        .error-card {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 16px;
+            text-align: center;
+            max-width: 450px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+        .error-icon {
+            font-size: 72px;
+            color: #ef4444;
+            margin-bottom: 20px;
+        }
+        .error-card h1 {
+            color: #004370;
+            margin-bottom: 10px;
+        }
+        .error-card p {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #009B5B, #007a48);
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,155,91,0.3);
+        }
+        .home-link {
+            color: #009B5B;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 12px;
+        }
+        .home-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-card">
+            <div class="error-icon"><i class="fas fa-times-circle"></i></div>
+            <h1>Payment Failed</h1>
+            <p>We couldn't process your payment. Please try again or use a different payment method.</p>
+            <div style="display:flex;flex-direction:column;gap:12px;">
+                <a href="#" onclick="window.history.back()" class="btn-primary"><i class="fas fa-arrow-left"></i> Try Again</a>
+                <a href="index.html" class="home-link">← Back to Home</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

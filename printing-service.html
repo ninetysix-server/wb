@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Printing Quotation | 96 Studios</title>
+
+    <link
+        rel="icon"
+        type="image/x-icon"
+        href="assets/images/icon.svg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/toast.css">
+    <link rel="stylesheet" href="css/printing-service.css">
+</head>
+
+<body class="printing-detail-page">
+
+    <header class="service-page-header">
+
+        <div class="service-page-info-strip">
+
+            <span>
+                Get 10% Off on designs over R500.
+                Delivery within 2–5 working days.
+            </span>
+
+            <div class="service-page-socials">
+
+                <a
+                    href="https://www.instagram.com/96studioss/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                >
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a
+                    href="https://www.facebook.com/ninetysixgraphics"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                >
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a
+                    href="https://www.tiktok.com/@96.studios6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok"
+                >
+                    <i class="fab fa-tiktok"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="service-page-main-header">
+
+            <a
+                href="index.html"
+                class="service-page-logo"
+                aria-label="96 Studios home"
+            >
+                <img
+                    src="assets/images/logo.svg"
+                    alt="96 Studios"
+                >
+            </a>
+
+
+            <form
+                class="service-page-search"
+                id="printingPageSearchForm"
+            >
+                <input
+                    type="search"
+                    id="printingPageSearchInput"
+                    placeholder="What are you looking for?"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="submit"
+                    aria-label="Search services"
+                >
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+
+            <div class="service-page-help">
+
+                <div class="service-page-help-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+
+                <div>
+                    <small>Need help?</small>
+                    <strong>+27 (81) 792-5033</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="service-page-navigation">
+
+            <div class="service-page-nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="index.html#services">
+                    Design Services
+                </a>
+
+                <a href="index.html#printingServices">
+                    Printing
+                </a>
+
+                <a href="index.html#promotionsSection">
+                    Promotions
+                </a>
+
+            </div>
+
+            <a
+                href="index.html#printingServices"
+                class="service-page-back-link"
+            >
+                <i class="fas fa-arrow-left"></i>
+                Back to Printing
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main class="printing-detail-main">
+
+        <div
+            class="printing-detail-loading"
+            id="printingDetailLoading"
+        >
+            <div class="spinner"></div>
+            <p>Loading printing service...</p>
+        </div>
+
+
+        <section
+            class="printing-detail-error"
+            id="printingDetailError"
+            hidden
+        >
+            <i class="fas fa-exclamation-circle"></i>
+
+            <h1>Printing service not found</h1>
+
+            <p>
+                This printing service may no longer be available.
+            </p>
+
+            <a href="index.html#printingServices">
+                Browse Printing Services
+            </a>
+        </section>
+
+
+        <section
+            class="printing-product-layout"
+            id="printingDetailContent"
+            hidden
+        >
+
+            <aside class="printing-filter-panel">
+
+                <div class="printing-filter-heading">
+                    <h2>Configure Quote</h2>
+
+                    <p>
+                        Select your preferred specifications.
+                    </p>
+                </div>
+
+                <div
+                    class="printing-filter-groups"
+                    id="printingFilterGroups"
+                ></div>
+
+            </aside>
+
+            <section class="printing-product-area">
+
+                <div class="printing-breadcrumb">
+                    <a href="index.html">Home</a>
+                    <span>›</span>
+                    <a href="index.html#printingServices">
+                        Printing
+                    </a>
+                    <span>›</span>
+                    <strong id="printingBreadcrumbTitle">
+                        Service
+                    </strong>
+                </div>
+
+
+                <div class="printing-product-header">
+
+                    <div>
+                        <span class="printing-product-category">
+                            Printing Service
+                        </span>
+
+                        <h1 id="printingServiceTitle">
+                            Printing Service
+                        </h1>
+
+                        <p id="printingServiceDescription"></p>
+                    </div>
+
+                    <div class="printing-product-price">
+
+                        <small>Starting price</small>
+
+                        <strong id="printingServicePrice">
+                            Request Quote
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="printing-product-body">
+
+                    <div class="printing-product-image">
+
+                        <img
+                            id="printingServiceImage"
+                            src="assets/images/slide-03.png"
+                            alt="Printing service"
+                        >
+
+                    </div>
+
+
+                    <div class="printing-quotation-summary">
+
+                        <div class="printing-summary-heading">
+
+                            <span>Your selection</span>
+
+                            <h2>Quotation Summary</h2>
+
+                        </div>
+
+                        <div
+                            class="printing-summary-list"
+                            id="printingSummaryList"
+                        >
+                            <p class="printing-summary-empty">
+                                Choose your specifications from the menu.
+                            </p>
+                        </div>
+
+
+                        <div class="printing-contact-fields">
+
+                            <label>
+                                Your name
+
+                                <input
+                                    type="text"
+                                    id="printingCustomerName"
+                                    placeholder="Enter your name"
+                                >
+                            </label>
+
+                            <label>
+                                Phone number
+
+                                <input
+                                    type="tel"
+                                    id="printingCustomerPhone"
+                                    placeholder="Example: 081 792 5033"
+                                >
+                            </label>
+
+                            <label>
+                                Additional information
+
+                                <textarea
+                                    id="printingCustomerNotes"
+                                    rows="4"
+                                    placeholder="Add measurements, deadline or other requirements"
+                                ></textarea>
+                            </label>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="printing-submit-quotation"
+                            id="submitPrintingQuotation"
+                        >
+                            <i class="fab fa-whatsapp"></i>
+                            Request / Submit Quotation
+                        </button>
+
+                        <p class="printing-quotation-note">
+                            The final price will be confirmed after
+                            96 Studios reviews your specifications.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <script
+        type="module"
+        src="js/printing-service.js"
+    ></script>
+
+</body>
+</html>

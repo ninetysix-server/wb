@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="assets/images/icon.svg">
+    <title>Refund Policy - 96 Studios</title>
+    <style>
+        :root {
+            --primary: #0067B8;  
+            --dark: #004370;
+            --medium: #2F2F2F;
+            --light: #F2F2F2;
+            --white: #FFFFFF;
+            --accent: #009B5B;  
+            --border-radius: 2px;
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', SegoeUI, "Helvetica Neue", Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--medium);
+            background-color: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+        
+        .logo {
+            height: 32px;
+            width: auto;
+        }
+        
+        .hero {
+            background-color: var(--primary);
+            color: var(--white);
+            padding: 80px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 300;
+            margin-bottom: 16px;
+        }
+        
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            color: var(--primary);
+            font-size: 28px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .card h3 {
+            color: var(--primary);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .card ul {
+            list-style-type: none;
+        }
+        
+        .card li {
+            margin-bottom: 12px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .card li:before {
+            content: "•";
+            color: var(--primary);
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+            top: -2px;
+        }
+        
+        .highlight-box {
+            background-color: var(--light);
+            border-left: 4px solid var(--accent);
+            padding: 25px;
+            margin: 40px 0;
+        }
+        
+        .highlight-box h3 {
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+        
+        .fee-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .fee-label {
+            font-weight: 600;
+        }
+        
+        .fee-value {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 40px 0;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+        }
+        
+        .footer-logo {
+            height: 24px;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links h4 {
+            color: var(--white);
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .footer-links ul {
+            list-style-type: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ADADAD;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: #ADADAD;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 0;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero p {
+                font-size: 18px;
+                padding: 0 20px;
+            }
+            
+            .content-section {
+                padding: 40px 0;
+            }
+        }
+
+.breadcrumb {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    margin: 10px 0;
+    margin-left: 10px ;
+}
+
+.breadcrumb ul {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.breadcrumb li {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin: 0 10px;
+    color: #999;
+    font-weight: 300;
+}
+
+.breadcrumb a {
+    color: #4285f4;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb a:hover {
+    color: #3367d6;
+}
+
+.breadcrumb li:last-child {
+    color: #666;
+    font-weight: 500;
+}
+  
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="container">
+            <h1>Refund Policy</h1>
+            <p>Clear and fair refund information for 96 Studios design and printing services.</p>
+        </div>
+    </section>
+
+    <div class="breadcrumb">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li>Refund Policy</li>
+        </ul>
+    </div>
+
+    <section class="content-section">
+        <div class="container">
+            <h2 class="section-title">Design Service Refunds</h2>
+
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Before Designing Starts</h3>
+                    <ul>
+                        <li>You qualify for a 100% refund if you cancel before we start designing.</li>
+                        <li>Design work normally starts within 24 hours after your order is placed and all required information is received.</li>
+                        <li>Your order must still be in the Pending stage when the refund is requested.</li>
+                        <li>The refund will be sent back through the original payment method where possible.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Designing in Progress</h3>
+                    <ul>
+                        <li>You qualify for a 60% refund once your order has moved to the Designing stage.</li>
+                        <li>The remaining 40% covers the designer's time and work already completed.</li>
+                        <li>This refund applies only while the design is still being created and has not moved to Review.</li>
+                        <li>Any work already supplied may not be used after the refund is completed.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Review or Completed</h3>
+                    <ul>
+                        <li>No refund is available once the design has moved to the Review stage.</li>
+                        <li>No refund is available after the design has been marked Completed.</li>
+                        <li>Customers may still request revisions according to the package selected.</li>
+                        <li>Final approved or delivered design files are not refundable.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Refund Summary</h3>
+
+                <div class="fee-item">
+                    <span class="fee-label">Pending — before designing starts</span>
+                    <span class="fee-value">100% refund</span>
+                </div>
+
+                <div class="fee-item">
+                    <span class="fee-label">Designing — work has started</span>
+                    <span class="fee-value">60% refund</span>
+                </div>
+
+                <div class="fee-item">
+                    <span class="fee-label">Review</span>
+                    <span class="fee-value">No refund</span>
+                </div>
+
+                <div class="fee-item">
+                    <span class="fee-label">Completed</span>
+                    <span class="fee-value">No refund</span>
+                </div>
+            </div>
+
+            <h2 class="section-title">Other Important Information</h2>
+
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Printing Orders</h3>
+                    <ul>
+                        <li>Printing begins only after the final artwork has been approved.</li>
+                        <li>No refund is available once printing has started.</li>
+                        <li>A reprint or suitable solution may be offered if the printed product is damaged or contains an error caused by 96 Studios.</li>
+                        <li>Customers are responsible for checking names, numbers, spelling, colours and other details before approving printing.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Refund Processing</h3>
+                    <ul>
+                        <li>Approved refunds are normally processed within 3 to 7 business days.</li>
+                        <li>Your bank or payment provider may take additional time to reflect the payment.</li>
+                        <li>Refunds are calculated from the amount actually paid after discounts or promotions.</li>
+                        <li>Transaction or bank charges that cannot be recovered may be excluded where applicable.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Requesting a Refund</h3>
+                    <ul>
+                        <li>Provide your full name and order number.</li>
+                        <li>Provide the WhatsApp number used for the order.</li>
+                        <li>Explain why you are requesting the refund.</li>
+                        <li>Contact support@96studios.co.za or WhatsApp +27 81 792 5033.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h3>Important</h3>
+                <p>
+                    Refund eligibility is based on the order status at the time your request is received.
+                    Before the status changes to <strong>Designing</strong>, a 100% refund applies.
+                    During <strong>Designing</strong>, a 60% refund applies.
+                    Orders in <strong>Review</strong> or <strong>Completed</strong> are not refundable.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="copyright">
+                <p>&copy; 2026 96 Studios. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

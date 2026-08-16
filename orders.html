@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="assets/images/icon.svg">
+  <title>My Orders - 96 Studios</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #004370;
+      --navy-2: #00609c;
+      --green: #009b5b;
+      --text: #243447;
+      --muted: #64748b;
+      --line: #e2e8f0;
+      --surface: #ffffff;
+      --background: #f6f8fb;
+    }
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: var(--background);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    button, a { font: inherit; }
+    .portal-container { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 24px 0 50px; }
+    .portal-header {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 24px;
+      padding: 30px;
+      border-radius: 22px;
+      color: white;
+      background: #004370;
+    }
+    .portal-header::after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -100px;
+      width: 270px;
+      height: 270px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.08);
+    }
+    .header-top { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .back-button, .logout-button {
+      border: 0;
+      color: white;
+      cursor: pointer;
+      background: rgba(255,255,255,.15);
+      transition: .2s ease;
+    }
+    .back-button { width: 42px; height: 42px; border-radius: 50%; }
+    .logout-button { border-radius: 999px; padding: 10px 15px; display: inline-flex; gap: 8px; align-items: center; }
+    .heading { position: relative; z-index: 1; text-align: center; margin: 18px auto 22px; }
+    .heading h1 { font-size: clamp(26px, 4vw, 36px); margin-bottom: 8px; }
+    .heading p { opacity: .88; }
+    .client-info {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,.2);
+    }
+    .welcome-label { opacity: .75; font-size: 13px; margin-bottom: 4px; }
+    #userEmail { font-weight: 700; word-break: break-word; }
+    .client-id-badge { padding: 9px 15px; border-radius: 999px; background: rgba(255,255,255,.16); font-weight: 700; font-size: 13px; white-space: nowrap; }
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+    .summary-card { background: white; border: 1px solid var(--line); border-radius: 16px; padding: 18px; }
+    .summary-card span { display: block; color: var(--muted); font-size: 13px; margin-bottom: 8px; }
+    .summary-card strong { font-size: 24px; color: var(--navy); }
+    .orders-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; }
+    .order-card { background: white; border: 1px solid var(--line); border-radius: 18px; padding: 22px; transition: transform .2s ease, box-shadow .2s ease; }
+    .order-header { display: flex; justify-content: space-between; gap: 16px; align-items: flex-start; padding-bottom: 14px; margin-bottom: 14px; border-bottom: 1px solid #edf2f7; }
+    .order-id { color: var(--navy); font-weight: 800; font-size: 18px; }
+    .order-date { color: var(--muted); font-size: 12px; text-align: right; }
+    .badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+    .status-badge { display: inline-flex; align-items: center; gap: 6px; border-radius: 999px; padding: 6px 10px; font-size: 12px; font-weight: 800; border: 1px solid transparent; }
+    .status-paid, .status-completed { background:#dcfce7; color:#166534; border-color:#bbf7d0; }
+    .status-pending { background:#fff7d6; color:#92400e; border-color:#fde68a; }
+    .status-failed, .status-cancelled, .status-not-paid { background:#fee2e2; color:#991b1b; border-color:#fecaca; }
+    .status-waiting { background:#dbeafe; color:#1e40af; border-color:#bfdbfe; }
+    .status-designing, .status-in-progress { background:#f3e8ff; color:#6d28d9; border-color:#ddd6fe; }
+    .progress-section { margin: 17px 0; }
+    .progress-header { display:flex; justify-content:space-between; color:var(--muted); font-size:13px; font-weight:700; margin-bottom:7px; }
+    .progress-bar { height:8px; overflow:hidden; border-radius:999px; background:#e8edf3; }
+    .progress-fill { height:100%; border-radius:inherit; background:linear-gradient(90deg,var(--green),#00cc73); }
+    .order-details { margin-top: 8px; }
+    .order-detail-row { display:flex; justify-content:space-between; gap:20px; padding:8px 0; color:var(--muted); font-size:13px; }
+    .detail-value { color:var(--text); font-weight:700; text-align:right; }
+    .total-row { border-top:1px solid var(--line); margin-top:6px; padding-top:13px; }
+    .total-row .detail-label, .total-row .detail-value { color:var(--navy); font-size:16px; font-weight:800; }
+    .total-row .detail-value { color:var(--green); }
+    .order-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:18px; }
+    .view-details-btn, .payment-button { min-height:44px; border-radius:10px; padding:10px 14px; font-weight:800; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; gap:8px; transition:.2s ease; }
+    .view-details-btn { border:0; color:white; background: #004370; }
+    .payment-button { border:0; color:white; background: #009b5b; }
+    .paid-note { grid-column:1 / -1; display:flex; justify-content:center; gap:8px; color:#009b5b; background:#ecfdf5; border:1px solid #bbf7d0; border-radius:10px; padding:11px; font-weight:800; font-size:13px; }
+    .loading-spinner, .no-orders, .error-message { background:white; border:1px solid var(--line); border-radius:18px; padding:54px 22px; text-align:center; }
+    .spinner { width:48px; height:48px; margin:0 auto 16px; border:4px solid #e2e8f0; border-top-color:var(--green); border-radius:50%; animation:spin 1s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    .no-orders i { font-size:46px; color:#cbd5e1; margin-bottom:16px; }
+    .no-orders h3 { margin-bottom:8px; }
+    .no-orders p { color:var(--muted); margin-bottom:20px; }
+    .primary-button { display:inline-flex; align-items:center; gap:8px; text-decoration:none; background:var(--green); color:white; padding:12px 20px; border-radius:10px; font-weight:800; }
+    .error-message { color:#991b1b; background:#fff1f2; border-color:#fecdd3; }
+    .timeline-wrap{margin:20px 0;padding:18px;border:1px solid var(--line);border-radius:16px;background:#fbfdff}
+    .timeline-title{font-weight:800;color:var(--navy);margin-bottom:16px}
+    .timeline{display:grid;gap:13px}
+    .timeline-step{display:grid;grid-template-columns:30px 1fr;gap:12px;align-items:start;position:relative}
+    .timeline-step:not(:last-child)::after{content:"";position:absolute;left:14px;top:29px;width:2px;height:calc(100% + 1px);background:#dbe5ee}
+    .timeline-step.done:not(:last-child)::after{background:var(--green)}
+    .timeline-dot{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#e8eef4;color:#8291a1;z-index:1}
+    .timeline-step.done .timeline-dot{background:#d9f7e8;color:var(--green)}
+    .timeline-step.active .timeline-dot{background:#e0f1ff;color:var(--navy);}
+    .timeline-copy strong{display:block;font-size:14px}
+    .timeline-copy span{font-size:12px;color:var(--muted)}
+    .customer-update{margin-top:16px;padding:14px;border-left:4px solid var(--navy);background:#eff7fc;border-radius:10px;color:#29465d}
+    .downloads-wrap{margin-top:18px;padding:18px;border:1px solid var(--line);border-radius:16px;background:#fff}
+    .downloads-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
+    .downloads-head strong{font-size:15px}
+    .download-list{display:grid;gap:9px}
+    .download-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px;border:1px solid var(--line);border-radius:12px;background:#fbfcfe}
+    .download-row strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .download-row small{color:var(--muted)}
+    .download-btn{border:none;border-radius:10px;background:var(--navy);color:#fff;padding:10px 13px;font-weight:700;cursor:pointer}
+    .download-btn:disabled{opacity:.55}
+    .no-downloads{color:var(--muted);font-size:13px}
+    .delivery-meta{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px}
+    .delivery-box{padding:13px;border:1px solid var(--line);border-radius:12px;background:#fff}
+    .delivery-box small{display:block;color:var(--muted);margin-bottom:5px}
+    @media(max-width:560px){.delivery-meta{grid-template-columns:1fr}}
+    .modal-overlay { position:fixed; inset:0; z-index:4000; display:none; align-items:center; justify-content:center; padding:18px; background:rgba(2,12,27,.72); backdrop-filter:blur(5px); }
+    .modal { width:min(640px,100%); max-height:86vh; overflow:auto; background:white; border-radius:20px;}
+    .modal-header { position:sticky; top:0; z-index:2; display:flex; align-items:center; justify-content:space-between; padding:20px 24px; border-bottom:1px solid var(--line); background:white; }
+    .modal-header h3 { color:var(--navy); }
+    .close-modal { width:38px; height:38px; border:0; border-radius:50%; cursor:pointer; color:var(--muted); background:#f1f5f9; }
+    .modal-body { padding:24px; }
+    .design-detail-row { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; padding:12px 0; border-bottom:1px solid #f1f5f9; }
+    .design-detail-label { color:#334155; font-size:14px; font-weight:800; min-width:125px; }
+    .design-detail-value { color:#475569; font-size:14px; text-align:right; word-break:break-word; }
+    .item-block { padding:13px; margin:8px 0; border:1px solid var(--line); border-radius:12px; background:#f8fafc; }
+    .item-title { color:var(--navy); font-weight:800; margin-bottom:5px; }
+    @media (max-width: 760px) {
+      .portal-container { width:min(100% - 20px,1180px); padding-top:10px; }
+      .portal-header { padding:20px 16px; border-radius:16px; }
+      .logout-button span { display:none; }
+      .client-info { flex-direction:column; text-align:center; }
+      .summary-strip { grid-template-columns:repeat(2,1fr); }
+      .orders-grid { grid-template-columns:1fr; }
+      .order-actions { grid-template-columns:1fr; }
+      .design-detail-row { flex-direction:column; gap:6px; }
+      .design-detail-value { text-align:left; }
+    }
+  </style>
+</head>
+<body>
+  <main class="portal-container">
+    <section class="portal-header">
+      <div class="header-top">
+        <button class="back-button" id="backButton" aria-label="Go back"><i class="fas fa-arrow-left"></i></button>
+        <button class="logout-button" id="logoutButton"><i class="fas fa-right-from-bracket"></i><span>Sign out</span></button>
+      </div>
+      <div class="heading">
+        <h1></i> My Orders</h1>
+        <p>View payments, order details, and design progress.</p>
+      </div>
+      <div class="client-info">
+        <div><div class="welcome-label">Signed in as</div><div id="userEmail">Loading...</div></div>
+        <div class="client-id-badge" id="clientIdBadge"><i class="fas fa-id-card"></i> Client ID: Loading...</div>
+      </div>
+    </section>
+
+    <section class="summary-strip" id="summaryStrip" hidden>
+      <div class="summary-card"><span>Total orders</span><strong id="totalOrders">0</strong></div>
+      <div class="summary-card"><span>Paid</span><strong id="paidOrders">0</strong></div>
+      <div class="summary-card"><span>Pending</span><strong id="pendingOrders">0</strong></div>
+      <div class="summary-card"><span>Total value</span><strong id="totalValue">R0.00</strong></div>
+    </section>
+
+    <div id="portalMessages"></div>
+    <div class="loading-spinner" id="loadingSpinner"><div class="spinner"></div><div>Loading your orders...</div></div>
+    <section class="orders-grid" id="ordersGrid" hidden></section>
+    <section class="no-orders" id="noOrders" hidden>
+      <i class="fas fa-clipboard-list"></i>
+      <h3>No orders yet</h3>
+      <p>Your design orders will appear here after checkout.</p>
+      <a href="index.html" class="primary-button"><i class="fas fa-plus"></i> Browse services</a>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="designModal">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-header"><h3 id="modalTitle">Order Details</h3><button class="close-modal" id="closeDesignModal"><i class="fas fa-times"></i></button></div>
+      <div class="modal-body" id="designModalContent"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+
+    const SUPABASE_URL = "https://pebkryplphawjlmvcfma.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBlYmtyeXBscGhhd2psbXZjZm1hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2ODg2NjEsImV4cCI6MjA5NzI2NDY2MX0.Sn1IPlLKhJG5u6gTXpB_tUbSr4PThWrWVpHUNDG1zdU";
+    const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const els = {
+      loading: document.getElementById("loadingSpinner"),
+      grid: document.getElementById("ordersGrid"),
+      noOrders: document.getElementById("noOrders"),
+      messages: document.getElementById("portalMessages"),
+      summary: document.getElementById("summaryStrip"),
+      modal: document.getElementById("designModal"),
+      modalContent: document.getElementById("designModalContent")
+    };
+
+    let loadedOrders = [];
+
+    document.getElementById("backButton").addEventListener("click", () => history.back());
+    document.getElementById("logoutButton").addEventListener("click", async () => {
+      await supabase.auth.signOut();
+      location.href = "index.html";
+    });
+    document.getElementById("closeDesignModal").addEventListener("click", closeModal);
+    els.modal.addEventListener("click", event => { if (event.target === els.modal) closeModal(); });
+    document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
+
+    function escapeHtml(value) {
+      return String(value ?? "").replace(/[&<>'"]/g, char => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;"
+      })[char]);
+    }
+
+    function money(value) {
+      const number = Number(value);
+      return `R${Number.isFinite(number) ? number.toFixed(2) : "0.00"}`;
+    }
+
+    function statusClass(status) {
+      return `status-${String(status || "Pending").toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+    }
+
+    function statusIcon(status) {
+      const value = String(status || "").toLowerCase();
+      if (["paid", "completed"].includes(value)) return "fa-check-circle";
+      if (["failed", "cancelled", "not paid"].includes(value)) return "fa-circle-xmark";
+      if (["designing", "in progress"].includes(value)) return "fa-pen-ruler";
+      return "fa-clock";
+    }
+
+    async function initializePortal() {
+      if (SUPABASE_ANON_KEY.includes("PASTE_YOUR")) {
+        showError("Add your existing Supabase anon key inside portal.html before uploading it.");
+        return;
+      }
+
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (sessionError || !session?.user) {
+        location.href = "index.html";
+        return;
+      }
+
+      const user = session.user;
+      document.getElementById("userEmail").textContent = user.email || "Customer";
+      await loadOrders(user.id);
+      supabase.channel(`customer-orders-${user.id}`)
+        .on("postgres_changes", {
+          event: "UPDATE",
+          schema: "public",
+          table: "orders",
+          filter: `user_id=eq.${user.id}`
+        }, async () => {
+          await loadOrders(user.id);
+        })
+        .subscribe();
+    }
+
+    async function loadOrders(userId) {
+      const { data, error } = await supabase
+        .from("orders")
+        .select("id, order_id, user_id, client_id, cart, user_input, totals, payment_status, design_status, progress, assigned_designer, estimated_completion_date, customer_update, created_at, updated_at")
+        .eq("user_id", userId)
+        .order("created_at", { ascending: false });
+
+      els.loading.hidden = true;
+
+      if (error) {
+        console.error(error);
+        showError("We could not load your orders. Check your Supabase orders SELECT policy.");
+        return;
+      }
+
+      loadedOrders = Array.isArray(data) ? data : [];
+      els.grid.innerHTML = "";
+      els.noOrders.hidden = true;
+      const clientId = loadedOrders.find(order => order.client_id)?.client_id || "N/A";
+      document.getElementById("clientIdBadge").innerHTML = `<i class="fas fa-id-card"></i> Client ID: ${escapeHtml(clientId)}`;
+
+      if (!loadedOrders.length) {
+        els.noOrders.hidden = false;
+        return;
+      }
+
+      updateSummary(loadedOrders);
+      els.grid.innerHTML = loadedOrders.map(createOrderCard).join("");
+      els.grid.hidden = false;
+      els.summary.hidden = false;
+
+      els.grid.querySelectorAll(".view-details-btn").forEach(button => {
+        button.addEventListener("click", () => openModal(button.dataset.orderId));
+      });
+    }
+
+    function updateSummary(orders) {
+      const paid = orders.filter(order => String(order.payment_status).toLowerCase() === "paid").length;
+      const pending = orders.filter(order => String(order.payment_status).toLowerCase() === "pending").length;
+      const total = orders.reduce((sum, order) => sum + Number(order.totals?.total || 0), 0);
+      document.getElementById("totalOrders").textContent = orders.length;
+      document.getElementById("paidOrders").textContent = paid;
+      document.getElementById("pendingOrders").textContent = pending;
+      document.getElementById("totalValue").textContent = money(total);
+    }
+
+    function createOrderCard(order) {
+      const paymentStatus = order.payment_status || "Pending";
+      const designStatus = order.design_status || "Waiting";
+      const progress = Math.min(100, Math.max(0, Number(order.progress || 0)));
+      const cart = Array.isArray(order.cart) ? order.cart : [];
+      const itemCount = cart.reduce((sum, item) => sum + Number(item.quantity || 1), 0);
+      const date = new Date(order.created_at).toLocaleDateString("en-ZA", { year: "numeric", month: "short", day: "numeric" });
+      const isPaid = paymentStatus.toLowerCase() === "paid";
+
+      return `
+        <article class="order-card">
+          <div class="order-header">
+            <div class="order-id">${escapeHtml(order.order_id)}</div>
+            <div class="order-date">${escapeHtml(date)}</div>
+          </div>
+          <div class="badges">
+            <span class="status-badge ${statusClass(paymentStatus)}"><i class="fas ${statusIcon(paymentStatus)}"></i>${escapeHtml(paymentStatus)}</span>
+            <span class="status-badge ${statusClass(designStatus)}"><i class="fas ${statusIcon(designStatus)}"></i>${escapeHtml(designStatus)}</span>
+          </div>
+          <div class="progress-section">
+            <div class="progress-header"><span>Design progress</span><span>${progress}%</span></div>
+            <div class="progress-bar"><div class="progress-fill" style="width:${progress}%"></div></div>
+          </div>
+          <div class="order-details">
+            <div class="order-detail-row"><span class="detail-label">Items</span><span class="detail-value">${itemCount}</span></div>
+            <div class="order-detail-row"><span class="detail-label">Subtotal</span><span class="detail-value">${money(order.totals?.subtotal)}</span></div>
+            <div class="order-detail-row total-row"><span class="detail-label">Total</span><span class="detail-value">${money(order.totals?.total)}</span></div>
+          </div>
+          <div class="order-actions">
+            <button class="view-details-btn" data-order-id="${escapeHtml(order.order_id)}"><i class="fas fa-eye"></i> Details</button>
+            ${isPaid
+              ? `<div class="paid-note"><i class="fas fa-circle-check"></i> Payment confirmed</div>`
+              : `<a class="payment-button" href="payment.html?orderId=${encodeURIComponent(order.order_id)}"><i class="fas fa-credit-card"></i> Pay now</a>`}
+          </div>
+        </article>`;
+    }
+
+
+    function timelineHtml(order) {
+      const paymentPaid = String(order.payment_status || "").toLowerCase() === "paid";
+      const progress = Number(order.progress || 0);
+      const status = String(order.design_status || "Waiting").toLowerCase();
+      const steps = [
+        { label:"Order received", note:"Your order was saved successfully.", done:true },
+        { label:"Payment confirmed", note:"Your payment has been verified.", done:paymentPaid },
+        { label:"In design queue", note:"Your project is prepared for production.", done:paymentPaid && (progress >= 0 || status !== "waiting") },
+        { label:"Designing", note:"Your designer is actively working on it.", done:progress >= 25 || ["designing","review","ready","completed"].includes(status) },
+        { label:"Quality review", note:"The work is being checked before delivery.", done:progress >= 75 || ["review","ready","completed"].includes(status) },
+        { label:"Ready for delivery", note:"Your completed files are ready.", done:progress >= 100 || ["ready","completed"].includes(status) }
+      ];
+      let lastDone = -1;
+      steps.forEach((step,index)=>{ if(step.done) lastDone=index; });
+      return `<div class="timeline-wrap">
+        <div class="timeline-title">Order timeline</div>
+        <div class="timeline">${steps.map((step,index)=>{
+          const state = step.done ? "done" : (index === lastDone + 1 ? "active" : "");
+          const icon = step.done ? "fa-check" : (state === "active" ? "fa-spinner" : "fa-circle");
+          return `<div class="timeline-step ${state}">
+            <div class="timeline-dot"><i class="fas ${icon}"></i></div>
+            <div class="timeline-copy"><strong>${step.label}</strong><span>${step.note}</span></div>
+          </div>`;
+        }).join("")}</div>
+      </div>`;
+    }
+
+    function renderCustomerOrderItem(item) {
+    const details = item.details || {};
+
+    const quantity = Math.max(
+        1,
+        Number(item.quantity || 1)
+    );
+
+    const unitTotal = Number(item.price || 0);
+    const lineTotal = unitTotal * quantity;
+
+    const printing =
+        details.printing &&
+        typeof details.printing === "object"
+            ? details.printing
+            : null;
+
+    const printingSelected =
+        details.printingSelected === true ||
+        printing !== null;
+
+    const printingSize =
+        printing?.size ||
+        details.printingSize ||
+        "Standard";
+
+    const printingCopies = Number(
+        printing?.copies ||
+        details.printingCopies ||
+        0
+    );
+
+    const printingPricePerCopy = Number(
+        printing?.pricePerCopy ||
+        details.printingPricePerCopy ||
+        0
+    );
+
+    const printingUnitTotal = Number(
+        printing?.total ||
+        details.printingPrice ||
+        0
+    );
+
+    const designUnitTotal = Number(
+        details.designTotal ??
+        details.servicePrice ??
+        (
+            details.pages
+                ? Number(details.basePrice || 0) +
+                  (
+                      Number(details.additionalPages || 0) *
+                      Number(details.pricePerPage || 0)
+                  )
+                : unitTotal - printingUnitTotal
+        )
+    );
+
+    return `
+        <div class="item-block" style="
+            padding:16px;
+            border:1px solid #e2e8f0;
+            border-radius:14px;
+            margin-bottom:14px;
+            background:#fbfdff;
+        ">
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                align-items:flex-start;
+                gap:16px;
+                margin-bottom:12px;
+            ">
+                <div>
+                    <div class="item-title">
+                        ${escapeHtml(
+                            item.serviceTitle ||
+                            item.title ||
+                            "Design service"
+                        )}
+                    </div>
+
+                    <small style="color:#64748b;">
+                        ${escapeHtml(
+                            item.tierName || "Standard"
+                        )}
+                        × ${quantity}
+                    </small>
+                </div>
+
+                <strong>
+                    ${money(lineTotal)}
+                </strong>
+            </div>
+
+            <div style="
+                display:grid;
+                gap:8px;
+                font-size:13px;
+            ">
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:18px;
+                ">
+                    <span>Design</span>
+                    <strong>
+                        ${money(designUnitTotal * quantity)}
+                    </strong>
+                </div>
+
+                ${
+                    printingSelected
+                        ? `
+                            <div style="
+                                margin-top:5px;
+                                padding-top:10px;
+                                border-top:1px solid #e2e8f0;
+                                font-weight:800;
+                                color:#004370;
+                            ">
+                                Printing details
+                            </div>
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                gap:18px;
+                            ">
+                                <span>Print size</span>
+                                <strong>
+                                    ${escapeHtml(printingSize)}
+                                </strong>
+                            </div>
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                gap:18px;
+                            ">
+                                <span>Copies</span>
+                                <strong>
+                                    ${printingCopies}
+                                </strong>
+                            </div>
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                gap:18px;
+                            ">
+                                <span>Price per copy</span>
+                                <strong>
+                                    ${money(printingPricePerCopy)}
+                                </strong>
+                            </div>
+
+                            <div style="
+                                display:flex;
+                                justify-content:space-between;
+                                gap:18px;
+                            ">
+                                <span>Printing subtotal</span>
+                                <strong>
+                                    ${money(
+                                        printingUnitTotal *
+                                        quantity
+                                    )}
+                                </strong>
+                            </div>
+                        `
+                        : ""
+                }
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    gap:18px;
+                    padding-top:10px;
+                    margin-top:5px;
+                    border-top:1px solid #e2e8f0;
+                    font-size:14px;
+                ">
+                    <strong>Item total</strong>
+                    <strong style="color:#009b5b;">
+                        ${money(lineTotal)}
+                    </strong>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+    function openModal(orderId) {
+      const order = loadedOrders.find(item => item.order_id === orderId);
+      if (!order) return;
+      const cart = Array.isArray(order.cart) ? order.cart : [];
+      const input = order.user_input && typeof order.user_input === "object" ? order.user_input : {};
+      const date = new Date(order.created_at).toLocaleDateString("en-ZA", { weekday:"long", year:"numeric", month:"long", day:"numeric" });
+      const itemsHtml = cart.length
+    ? cart.map(renderCustomerOrderItem).join("")
+    : "<p>No cart items found.</p>";
+
+      els.modalContent.innerHTML = `
+        <div class="design-detail-row"><span class="design-detail-label">Order ID</span><span class="design-detail-value">${escapeHtml(order.order_id)}</span></div>
+        <div class="design-detail-row"><span class="design-detail-label">Order date</span><span class="design-detail-value">${escapeHtml(date)}</span></div>
+        <div class="design-detail-row"><span class="design-detail-label">Payment</span><span class="design-detail-value"><span class="status-badge ${statusClass(order.payment_status)}">${escapeHtml(order.payment_status || "Pending")}</span></span></div>
+        <div class="design-detail-row"><span class="design-detail-label">Design status</span><span class="design-detail-value"><span class="status-badge ${statusClass(order.design_status)}">${escapeHtml(order.design_status || "Waiting")}</span></span></div>
+        <div class="design-detail-row"><span class="design-detail-label">Designs</span><span class="design-detail-value">${itemsHtml}</span></div>
+        <div class="design-detail-row"><span class="design-detail-label">Description</span><span class="design-detail-value">${escapeHtml(input.designDescription || "No description provided")}</span></div>
+        ${input.preferredColors ? `<div class="design-detail-row"><span class="design-detail-label">Preferred colours</span><span class="design-detail-value">${escapeHtml(input.preferredColors)}</span></div>` : ""}
+        ${input.sketchImageUrl ? `<div class="design-detail-row"><span class="design-detail-label">Reference</span><span class="design-detail-value"><a href="${escapeHtml(input.sketchImageUrl)}" target="_blank" rel="noopener">View uploaded reference</a></span></div>` : ""}
+        ${timelineHtml(order)}
+        <div class="delivery-meta">
+          <div class="delivery-box"><small>Assigned designer</small><strong>${escapeHtml(order.assigned_designer || "Not assigned yet")}</strong></div>
+          <div class="delivery-box"><small>Estimated completion</small><strong>${order.estimated_completion_date ? escapeHtml(new Date(order.estimated_completion_date + "T00:00:00").toLocaleDateString("en-ZA",{year:"numeric",month:"long",day:"numeric"})) : "To be confirmed"}</strong></div>
+        </div>
+        ${order.customer_update ? `<div class="customer-update"><strong>Latest update</strong><br>${escapeHtml(order.customer_update)}</div>` : ""}
+        <div class="downloads-wrap">
+          <div class="downloads-head"><strong><i class="fas fa-download"></i> Completed files</strong><span id="downloadCount"></span></div>
+          <div class="download-list" id="customerDownloadList"><div class="no-downloads">Checking for available files...</div></div>
+        </div>
+        <div class="design-detail-row"><span class="design-detail-label">Total</span><span class="design-detail-value"><strong>${money(order.totals?.total)}</strong></span></div>`;
+      els.modal.style.display = "flex";
+      document.body.style.overflow = "hidden";
+      loadCustomerDownloads(order);
+    }
+
+
+    async function loadCustomerDownloads(order){
+      const list = document.getElementById("customerDownloadList");
+      const count = document.getElementById("downloadCount");
+      if(!list) return;
+
+      const { data, error } = await supabase
+        .from("order_files")
+        .select("id, storage_path, file_name, mime_type, size_bytes, created_at")
+        .eq("order_id", order.id)
+        .order("created_at", { ascending:false });
+
+      if(error){
+        list.innerHTML = `<div class="no-downloads">${escapeHtml(error.message)}</div>`;
+        return;
+      }
+
+      count.textContent = data?.length ? `${data.length} file${data.length === 1 ? "" : "s"}` : "";
+      if(!data?.length){
+        list.innerHTML = '<div class="no-downloads">No completed files are available yet.</div>';
+        return;
+      }
+
+      list.innerHTML = data.map(file=>`
+        <div class="download-row">
+          <div>
+            <strong title="${escapeHtml(file.file_name)}">${escapeHtml(file.file_name)}</strong>
+            <small>${formatCustomerFileSize(file.size_bytes)}</small>
+          </div>
+          <button class="download-btn" data-customer-download="${escapeHtml(file.id)}"><i class="fas fa-download"></i> Download</button>
+        </div>`).join("");
+
+      document.querySelectorAll("[data-customer-download]").forEach(button=>{
+        button.addEventListener("click",()=>downloadCustomerFile(button, data));
+      });
+    }
+
+    function formatCustomerFileSize(bytes){
+      const value = Number(bytes || 0);
+      if(value < 1024) return `${value} B`;
+      if(value < 1024 * 1024) return `${(value / 1024).toFixed(1)} KB`;
+      return `${(value / (1024 * 1024)).toFixed(1)} MB`;
+    }
+
+    async function downloadCustomerFile(button, files){
+      const file = files.find(item=>item.id===button.dataset.customerDownload);
+      if(!file) return;
+      const original = button.innerHTML;
+      button.disabled = true;
+      button.textContent = "Preparing...";
+
+      const { data, error } = await supabase.storage
+        .from("design-files")
+        .createSignedUrl(file.storage_path, 120, { download:file.file_name });
+
+      button.disabled = false;
+      button.innerHTML = original;
+      if(error){
+        alert(error.message);
+        return;
+      }
+      window.open(data.signedUrl, "_blank", "noopener");
+    }
+
+    function closeModal() {
+      els.modal.style.display = "none";
+      document.body.style.overflow = "auto";
+    }
+
+    function showError(message) {
+      els.loading.hidden = true;
+      els.messages.innerHTML = `<div class="error-message"><i class="fas fa-circle-exclamation"></i> ${escapeHtml(message)}</div>`;
+    }
+
+    initializePortal();
+  </script>
+</body>
+</html>

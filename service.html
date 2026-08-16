@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Design Service | 96 Studios</title>
+
+    <link
+        rel="icon"
+        type="image/x-icon"
+        href="assets/images/icon.svg"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    >
+
+<link rel="stylesheet" href="css/main.css">
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/toast.css">
+<link rel="stylesheet" href="css/service-details.css">
+</head>
+
+<body class="service-detail-page">
+
+    <header class="service-page-header">
+
+        <div class="service-page-info-strip">
+
+            <span>
+                Get 10% Off on designs over R500.
+                Delivery within 2–5 working days.
+            </span>
+
+            <div class="service-page-socials">
+
+                <a
+                    href="https://www.instagram.com/96studioss/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Instagram"
+                >
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a
+                    href="https://www.facebook.com/ninetysixgraphics"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Facebook"
+                >
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a
+                    href="https://www.tiktok.com/@96.studios6"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="TikTok"
+                >
+                    <i class="fab fa-tiktok"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="service-page-main-header">
+
+            <a
+                href="index.html"
+                class="service-page-logo"
+                aria-label="96 Studios home"
+            >
+                <img
+                    src="assets/images/logo.svg"
+                    alt="96 Studios"
+                >
+            </a>
+
+
+            <form
+                class="service-page-search"
+                id="servicePageSearchForm"
+            >
+                <input
+                    type="search"
+                    id="servicePageSearchInput"
+                    placeholder="What are you looking for?"
+                    autocomplete="off"
+                >
+
+                <button
+                    type="submit"
+                    aria-label="Search services"
+                >
+                    <i class="fas fa-search"></i>
+                </button>
+            </form>
+
+
+            <div class="service-page-help">
+
+                <div class="service-page-help-icon">
+                    <i class="fas fa-phone-alt"></i>
+                </div>
+
+                <div>
+                    <small>Need help?</small>
+                    <strong>+27 (81) 792-5033</strong>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <nav class="service-page-navigation">
+
+            <div class="service-page-nav-links">
+
+                <a href="index.html">
+                    Home
+                </a>
+
+                <a href="index.html#services">
+                    Design Services
+                </a>
+
+                <a href="index.html#printingServices">
+                    Printing
+                </a>
+
+                <a href="index.html#promotionsSection">
+                    Promotions
+                </a>
+
+            </div>
+
+
+            <div class="service-page-nav-actions">
+
+                <a
+                    href="index.html#services"
+                    class="service-page-back-link"
+                >
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Services
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <main class="service-detail-main">
+
+        <div
+            class="service-detail-loading"
+            id="serviceDetailLoading"
+        >
+            <div class="spinner"></div>
+            <p>Loading design service...</p>
+        </div>
+
+        <div
+            class="service-detail-error"
+            id="serviceDetailError"
+            hidden
+        >
+            <i class="fas fa-exclamation-circle"></i>
+
+            <h1>Service not found</h1>
+
+            <p>
+                This design service may no longer be available.
+            </p>
+
+            <a href="index.html#services">
+                Browse Design Services
+            </a>
+        </div>
+
+        <section
+            class="service-detail-layout"
+            id="serviceDetailContent"
+            hidden
+        >
+
+            <div class="service-detail-gallery">
+
+                <div class="service-detail-main-image">
+
+                    <img
+                        id="serviceMainImage"
+                        src="assets/images/cart-title-image.png"
+                        alt="Design service"
+                    >
+
+                </div>
+
+                <div
+                    class="service-detail-thumbnails"
+                    id="serviceThumbnails"
+                ></div>
+
+            </div>
+
+            <div class="service-detail-information">
+
+                <div
+                    class="service-detail-category"
+                    id="serviceCategory"
+                ></div>
+
+                <h1 id="serviceTitle">
+                    Design Service
+                </h1>
+
+                <p
+                    class="service-detail-description"
+                    id="serviceDescription"
+                ></p>
+
+
+                <div class="service-detail-divider"></div>
+
+
+                <section class="service-detail-section">
+
+                    <h2>Choose your package</h2>
+
+                    <div
+                        class="service-detail-tiers"
+                        id="serviceTierOptions"
+                    ></div>
+
+                </section>
+
+
+                <section class="service-detail-section">
+
+                    <h2>Package features</h2>
+
+                    <ul
+                        class="service-detail-features"
+                        id="serviceFeatureList"
+                    ></ul>
+
+                </section>
+
+
+                <div
+                    id="serviceSpecialOptions"
+                    class="service-detail-special-options"
+                ></div>
+
+            </div>
+
+            <aside class="service-detail-purchase">
+
+                <div class="service-detail-price-label">
+                    Selected package
+                </div>
+
+                <div
+                    class="service-detail-tier-name"
+                    id="selectedTierName"
+                >
+                    Starter
+                </div>
+
+                <div class="service-detail-price-area">
+
+                    <span
+                        class="service-detail-current-price"
+                        id="serviceCurrentPrice"
+                    >
+                        R0.00
+                    </span>
+
+                    <span
+                        class="service-detail-original-price"
+                        id="serviceOriginalPrice"
+                        hidden
+                    ></span>
+
+                </div>
+
+
+                <div
+                    class="service-detail-saving"
+                    id="serviceSaving"
+                    hidden
+                ></div>
+
+
+                <div class="service-detail-delivery">
+
+                    <i class="fas fa-truck"></i>
+
+                    <span>
+                        Digital designs are delivered online.
+                        Printed products may take 2–5 working days.
+                    </span>
+
+                </div>
+
+
+                <div class="service-detail-quantity-row">
+
+                    <span>Quantity</span>
+
+                    <div class="service-detail-quantity">
+
+                        <button
+                            type="button"
+                            id="decreaseServiceQuantity"
+                            aria-label="Decrease quantity"
+                        >
+                            −
+                        </button>
+
+                        <input
+                            type="number"
+                            id="serviceQuantity"
+                            value="1"
+                            min="1"
+                            readonly
+                        >
+
+                        <button
+                            type="button"
+                            id="increaseServiceQuantity"
+                            aria-label="Increase quantity"
+                        >
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="service-detail-cart-button"
+                    id="serviceAddToCart"
+                >
+                    <i class="fas fa-shopping-cart"></i>
+                    Add to Cart
+                </button>
+
+
+                <button
+                    type="button"
+                    class="service-detail-wishlist-button"
+                    id="serviceAddToWishlist"
+                >
+                    <i class="far fa-heart"></i>
+                    Add to Wishlist
+                </button>
+
+
+                <a
+                    href="index.html"
+                    class="service-detail-view-cart"
+                >
+                    Continue to Website
+                </a>
+
+            </aside>
+
+<div class="service-detail-advert-column">
+
+    <article class="service-detail-image-advert">
+
+        <img hidden
+            src="assets/images/service-advert-placeholder.jpg"
+            alt="Featured promotion"
+        >
+
+        <div class="service-detail-image-advert-overlay"></div>
+
+        <div class="service-detail-image-advert-content">
+
+            <span>Fasfood.online</span>
+
+            <h2>
+                Fasfood Online App
+            </h2>
+
+            <p>
+                Register your shop and start
+                taking online orders.
+            </p>
+            <p style="padding-top: 50px;">
+                fastfood shops, Restuarants and chisanyama
+            </p>
+
+        </div>
+
+        <a
+            href="https://register.fasfood.online"
+            class="service-detail-advert-apply"
+        >
+            Apply Now
+        </a>
+
+    </article>
+
+    <article class="service-detail-payment-advert" style="z-index: 99;">
+
+        <div class="service-detail-payment-advert-top">
+
+            <div>
+                <span class="service-detail-payment-label">
+                    Pusha Bundle
+                </span>
+
+                <h3>
+                 Website design (Starter)
+                </h3>
+            </div>
+
+            <a
+                href="https://wa.me/27817925033"
+                class="service-detail-payment-apply"
+            >
+                Design Now
+            </a>
+
+        </div>
+
+        <div class="service-detail-payment-price">
+
+            <strong>R 99</strong>
+
+            <span>
+                per month
+            </span>
+
+        </div>
+
+        <div class="service-detail-payment-meta">
+
+            <span>1-4 pages/sections</span>
+
+            <span>You pay Only R99 monthly.</span>
+
+        </div>
+
+    </article>
+
+</div>
+
+        </section>
+
+    </main>
+
+
+    <script type="module" src="js/image-loading.js"></script>
+    <script
+        type="module"
+        src="js/service-details.js"
+    ></script>
+
+</body>
+</html>

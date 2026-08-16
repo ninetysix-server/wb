@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>96 Studios Admin Dashboard</title>
+  <link rel="icon" href="assets/images/icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="css/admin.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.4/jspdf.plugin.autotable.min.js"></script>
+
+</head>
+<body>
+  <main class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-mark">96</div>
+        <div><strong>96 Studios</strong><span>Admin Console</span></div>
+      </div>
+      <a class="nav-link active" id="ordersNav" href="#">
+    <i class="fa-solid fa-grid-2"></i>
+      Orders
+    </a>
+
+    <a class="nav-link" id="servicesNav" href="#">
+        <i class="fa-solid fa-layer-group"></i>
+        Services
+    </a>
+
+    <a class="nav-link" id="saleNav" href="#">
+    <i class="fa-solid fa-tags"></i>
+        Sale
+    </a>
+    
+      <div class="sidebar-footer">
+        <button class="signout-btn" id="signOutBtn"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign Out</button>
+      </div>
+    </aside>
+
+    <section class="main">
+      <header class="topbar">
+        <div>
+          <h1>Orders Dashboard</h1>
+          <p>Manage payments and design progress.</p>
+        </div>
+        <div class="admin-pill" id="adminEmail">Checking access...</div>
+      </header>
+
+      <section class="stats">
+        <article class="stat"><div class="stat-head"><span>Total Orders</span><span class="stat-icon"><i class="fa-solid fa-receipt"></i></span></div><div class="stat-value" id="totalOrders">0</div></article>
+        <article class="stat"><div class="stat-head"><span>Paid Orders</span><span class="stat-icon"><i class="fa-solid fa-circle-check"></i></span></div><div class="stat-value" id="paidOrders">0</div></article>
+        <article class="stat"><div class="stat-head"><span>In Design</span><span class="stat-icon"><i class="fa-solid fa-pen-ruler"></i></span></div><div class="stat-value" id="designingOrders">0</div></article>
+        <article class="stat"><div class="stat-head"><span>Revenue Paid</span><span class="stat-icon"><i class="fa-solid fa-coins"></i></span></div><div class="stat-value" id="paidRevenue">R0.00</div></article>
+      </section>
+
+      <section class="panel" id="ordersPanel">
+        <div class="panel-toolbar">
+  <div class="search-wrap">
+    <i class="fa-solid fa-magnifying-glass"></i>
+
+    <input
+      id="searchInput"
+      placeholder="Search order ID, client ID or service..."
+    >
+  </div>
+
+  <div class="filters">
+    <select id="paymentFilter">
+      <option value="">All payments</option>
+      <option>Pending</option>
+      <option>Paid</option>
+      <option>Failed</option>
+      <option>Cancelled</option>
+    </select>
+
+    <select id="designFilter">
+      <option value="">All design statuses</option>
+      <option>Waiting</option>
+      <option>Designing</option>
+      <option>Review</option>
+      <option>Ready</option>
+      <option>Completed</option>
+    </select>
+
+    <button
+      type="button"
+      class="save-btn"
+      id="downloadOrdersReport"
+      title="Download all current orders as PDF"
+    >
+      <i class="fa-solid fa-file-pdf"></i>
+      PDF Report
+    </button>
+
+    <button
+      type="button"
+      id="openResetOrders"
+      title="Permanently clear all orders"
+      style="
+        border:none;
+        border-radius:12px;
+        padding:12px 18px;
+        background:#dc2626;
+        color:#ffffff;
+        font-weight:700;
+        cursor:pointer;
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+      "
+    >
+      <i class="fa-solid fa-trash-can"></i>
+      Reset Orders
+    </button>
+  </div>
+</div>
+        <div id="tableState" class="loading">Loading orders...</div>
+        <div class="table-wrap" id="tableWrap" hidden>
+          <table>
+            <thead><tr><th>Order</th><th>Client</th><th>Service</th><th>Total</th><th>Payment</th><th>Design</th><th>Progress</th><th>Date</th><th></th></tr></thead>
+            <tbody id="ordersBody"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel" id="servicesPanel" style="display:none;">
+
+    <div class="panel-toolbar">
+
+        <h2>Services</h2>
+
+        <button class="save-btn" id="addServiceBtn">
+            <i class="fa-solid fa-plus"></i>
+            Add Service
+        </button>
+
+    </div>
+
+    <div id="servicesTable">
+
+        <div class="loading">
+            Loading services...
+        </div>
+
+    </div>
+
+</section>
+
+<section
+    class="panel"
+    id="salePanel"
+    style="display:none;"
+>
+    <div class="panel-toolbar">
+        <div>
+            <h2>Sale Header</h2>
+            <p style="color:#64748b;margin-top:6px;">
+                Control the website sale banner.
+            </p>
+        </div>
+
+        <span id="saleStatusBadge">
+            Inactive
+        </span>
+    </div>
+
+    <form
+        id="saleForm"
+        class="modal-body"
+    >
+        <div class="management-grid">
+
+            <div class="field">
+                <label for="saleActive">
+                    Sale status
+                </label>
+
+                <select id="saleActive">
+                    <option value="false">
+                        Inactive
+                    </option>
+
+                    <option value="true">
+                        Active
+                    </option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="saleEndDate">
+                    Sale ending date and time
+                </label>
+
+                <input
+                    id="saleEndDate"
+                    type="datetime-local"
+                >
+            </div>
+
+            <div class="field full">
+                <label for="saleTitle">
+                    Sale title
+                </label>
+
+                <input
+                    id="saleTitle"
+                    type="text"
+                    maxlength="200"
+                    placeholder="50% off on all Graphic Design services"
+                >
+            </div>
+
+        </div>
+
+        <div class="status-editor">
+            <button
+                class="save-btn"
+                id="saveSaleBtn"
+                type="submit"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save Sale
+            </button>
+        </div>
+    </form>
+</section>
+
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal">
+      <div class="modal-head"><h2 id="modalTitle">Order Details</h2><button class="close-btn" id="closeModal"><i class="fa-solid fa-xmark"></i></button></div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="filePreviewModal">
+  <div class="modal" style="width:min(1000px,100%);height:90vh;">
+    <div class="modal-head">
+      <h2 id="filePreviewTitle">File Preview</h2>
+
+      <button class="close-btn" id="closeFilePreview">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div style="height:calc(90vh - 80px);padding:15px;">
+      <iframe
+        id="filePreviewFrame"
+        style="width:100%;height:100%;border:none;border-radius:12px;">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="serviceModal">
+    <div class="modal">
+        <div class="modal-head">
+            <h2 id="serviceModalTitle">Add Service</h2>
+
+            <button
+                type="button"
+                class="close-btn"
+                id="closeServiceModal"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <form class="modal-body" id="serviceForm">
+
+            <input type="hidden" id="serviceId">
+
+            <div class="management-grid">
+
+                <div class="field">
+                    <label for="serviceTitle">Service title</label>
+                    <input
+                        type="text"
+                        id="serviceTitle"
+                        maxlength="150"
+                        required
+                        placeholder="Example: Logo Design"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="serviceSlug">Slug</label>
+                    <input
+                        type="text"
+                        id="serviceSlug"
+                        maxlength="150"
+                        required
+                        placeholder="logo-design"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="serviceCategory">Category</label>
+                    <input
+                        type="text"
+                        id="serviceCategory"
+                        maxlength="100"
+                        placeholder="Graphic Design"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="serviceDisplayOrder">
+                        Display order
+                    </label>
+
+                    <input
+                        type="number"
+                        id="serviceDisplayOrder"
+                        min="0"
+                        value="0"
+                    >
+                </div>
+
+                <div class="field full">
+                    <label for="serviceDescription">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="serviceDescription"
+                        maxlength="2000"
+                        placeholder="Describe this service"
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <h3>Current prices</h3>
+
+            <div class="management-grid">
+
+                <div class="field">
+                    <label for="starterPrice">Starter price</label>
+                    <input
+                        type="number"
+                        id="starterPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="premiumPrice">Premium price</label>
+                    <input
+                        type="number"
+                        id="premiumPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="proPrice">Pro price</label>
+                    <input
+                        type="number"
+                        id="proPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                    >
+                </div>
+
+            </div>
+
+            <h3>Original prices</h3>
+
+            <div class="meta-note">
+                Leave these empty when the service is not on sale.
+            </div>
+
+            <div class="management-grid">
+
+                <div class="field">
+                    <label for="starterOriginalPrice">
+                        Starter original price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="starterOriginalPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="premiumOriginalPrice">
+                        Premium original price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="premiumOriginalPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                    >
+                </div>
+
+                <div class="field">
+                    <label for="proOriginalPrice">
+                        Pro original price
+                    </label>
+
+                    <input
+                        type="number"
+                        id="proOriginalPrice"
+                        min="0"
+                        step="0.01"
+                        placeholder="0.00"
+                    >
+                </div>
+
+            </div>
+
+            <h3>Printing</h3>
+
+<div class="management-grid">
+
+    <div class="field">
+        <label for="printingEnabled">
+            Printing available
+        </label>
+
+        <select id="printingEnabled">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+        </select>
+    </div>
+
+    <div class="field">
+        <label for="serviceActive">
+            Service status
+        </label>
+
+        <select id="serviceActive">
+            <option value="true">Active</option>
+            <option value="false">Inactive</option>
+        </select>
+    </div>
+
+</div>
+
+<div id="printingManager" style="display:none;margin-top:24px;">
+
+    <div style="
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:16px;
+        margin-bottom:16px;
+    ">
+        <div>
+            <h3 style="margin:0;">Printing options</h3>
+
+            <div class="meta-note">
+                Add each available print size and its price per copy.
+            </div>
+        </div>
+
+        <button
+            type="button"
+            class="save-btn"
+            id="addPrintingOptionBtn"
+        >
+            <i class="fa-solid fa-plus"></i>
+            Add Size
+        </button>
+    </div>
+
+    <div id="printingOptionsContainer"></div>
+
+</div>
+
+            <div class="status-editor">
+                <button
+                    type="submit"
+                    class="save-btn"
+                    id="saveServiceBtn"
+                >
+                    <i class="fa-solid fa-floppy-disk"></i>
+                    Save Service
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<div class="modal-overlay" id="resetOrdersModal">
+  <div
+    class="modal"
+    style="width:min(520px,100%);"
+  >
+    <div class="modal-head">
+      <h2>
+        <i
+          class="fa-solid fa-triangle-exclamation"
+          style="color:#dc2626;margin-right:8px;"
+        ></i>
+
+        Reset All Orders
+      </h2>
+
+      <button
+        type="button"
+        class="close-btn"
+        id="closeResetOrders"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div
+        style="
+          padding:18px;
+          border:1px solid #fecaca;
+          border-radius:14px;
+          background:#fef2f2;
+          color:#991b1b;
+          margin-bottom:22px;
+        "
+      >
+        <strong
+          style="
+            display:block;
+            margin-bottom:8px;
+            font-size:16px;
+          "
+        >
+          This action cannot be undone.
+        </strong>
+
+        <p style="margin:0;line-height:1.6;">
+          All orders, order activity, customer approvals,
+          delivery-file records and uploaded order files will
+          be permanently removed.
+        </p>
+      </div>
+
+      <div
+        style="
+          padding:16px;
+          border:1px solid #e2e8f0;
+          border-radius:14px;
+          margin-bottom:20px;
+        "
+      >
+        <strong style="display:block;margin-bottom:8px;">
+          Recommended first step
+        </strong>
+
+        <p
+          style="
+            margin:0 0 14px;
+            color:#64748b;
+            line-height:1.5;
+          "
+        >
+          Download the PDF report before resetting so that you
+          retain a permanent order record.
+        </p>
+
+        <button
+          type="button"
+          class="save-btn"
+          id="downloadReportBeforeReset"
+        >
+          <i class="fa-solid fa-file-pdf"></i>
+          Download Report
+        </button>
+      </div>
+
+      <div class="field">
+        <label for="resetOrdersConfirmation">
+          Type
+          <strong style="color:#dc2626;">
+            RESET ORDERS
+          </strong>
+          to confirm
+        </label>
+
+        <input
+          type="text"
+          id="resetOrdersConfirmation"
+          autocomplete="off"
+          spellcheck="false"
+          placeholder="RESET ORDERS"
+        >
+      </div>
+
+      <label
+        style="
+          display:flex;
+          align-items:flex-start;
+          gap:10px;
+          margin-top:18px;
+          color:#475569;
+          line-height:1.5;
+          cursor:pointer;
+        "
+      >
+        <input
+          type="checkbox"
+          id="resetOrdersAgreement"
+          style="margin-top:4px;"
+        >
+
+        <span>
+          I understand that these records and uploaded files
+          cannot be recovered after deletion.
+        </span>
+      </label>
+
+      <div
+        style="
+          display:flex;
+          justify-content:flex-end;
+          flex-wrap:wrap;
+          gap:12px;
+          margin-top:26px;
+        "
+      >
+        <button
+          type="button"
+          id="cancelResetOrders"
+          style="
+            border:1px solid #cbd5e1;
+            border-radius:12px;
+            padding:12px 20px;
+            background:#ffffff;
+            color:#334155;
+            font-weight:700;
+            cursor:pointer;
+          "
+        >
+          Cancel
+        </button>
+
+        <button
+          type="button"
+          id="confirmResetOrders"
+          disabled
+          style="
+            border:none;
+            border-radius:12px;
+            padding:12px 20px;
+            background:#dc2626;
+            color:#ffffff;
+            font-weight:700;
+            cursor:not-allowed;
+            opacity:0.5;
+          "
+        >
+          <i class="fa-solid fa-trash-can"></i>
+          Permanently Reset
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="toast" id="toast"></div>
+
+ <script type="module" src="js/admin.js"></script>
+</body>
+</html>
