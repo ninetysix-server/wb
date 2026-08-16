@@ -68,6 +68,215 @@ function initialiseBeforeAfterSlider() {
     });
 }
 
+function waitForImageReady(image) {
+    return new Promise(resolve => {
+        let resolved = false;
+
+        const finish = async () => {
+            if (resolved) {
+                return;
+            }
+
+            resolved = true;
+
+            try {
+                if (typeof image.decode === 'function') {
+                    await image.decode();
+                }
+            } catch {
+            }
+
+            resolve();
+        };
+
+        const handleError = () => {
+            if (
+                image.dataset.fallbackUsed !== 'true'
+            ) {
+                image.dataset.fallbackUsed = 'true';
+                resolved = false;
+
+                image.src =
+                    'assets/images/slide-03.png';
+
+                return;
+            }
+
+            finish();
+        };
+
+        image.addEventListener(
+            'load',
+            finish,
+            { once: true }
+        );
+
+        image.addEventListener(
+            'error',
+            handleError
+        );
+
+        if (
+            image.complete &&
+            image.naturalWidth > 0
+        ) {
+            finish();
+        } else if (
+            image.complete &&
+            image.naturalWidth === 0
+        ) {
+            handleError();
+        }
+    });
+}
+
+async function markSingleImageContainerReady(
+    container,
+    image
+) {
+    if (!container || !image) {
+        return;
+    }
+
+    container.classList.add(
+        'is-image-loading'
+    );
+
+    await waitForImageReady(image);
+
+    requestAnimationFrame(() => {
+        container.classList.remove(
+            'is-image-loading'
+        );
+
+        container.classList.add(
+            'is-image-loaded'
+        );
+    });
+}
+
+function initialiseImageLoading() {
+
+    document
+        .querySelectorAll(
+            '.portfolio-item'
+        )
+        .forEach(item => {
+            markSingleImageContainerReady(
+                item,
+                item.querySelector('img')
+            );
+        });
+
+    document
+        .querySelectorAll(
+            '.work-showcase-card'
+        )
+        .forEach(card => {
+            markSingleImageContainerReady(
+                card,
+                card.querySelector('img')
+            );
+        });
+
+    const profileContainer =
+        document.querySelector(
+            '.kayg-profile-image'
+        );
+
+    if (profileContainer) {
+        markSingleImageContainerReady(
+            profileContainer,
+            profileContainer.querySelector(
+                'img'
+            )
+        );
+    }
+
+    document
+        .querySelectorAll(
+            '[data-before-after-slider]'
+        )
+        .forEach(async slider => {
+            const images =
+                Array.from(
+                    slider.querySelectorAll('img')
+                );
+
+            if (!images.length) {
+                slider.classList.add(
+                    'is-image-loaded'
+                );
+                return;
+            }
+
+            slider.classList.add(
+                'is-image-loading'
+            );
+
+            await Promise.all(
+                images.map(
+                    image =>
+                        waitForImageReady(image)
+                )
+            );
+
+            requestAnimationFrame(() => {
+                slider.classList.remove(
+                    'is-image-loading'
+                );
+
+                slider.classList.add(
+                    'is-image-loaded'
+                );
+            });
+        });
+}
+
+function initialiseLightboxImageLoading() {
+    const lightbox =
+        getElement('portfolioLightbox');
+
+    const lightboxImage =
+        getElement('portfolioLightboxImage');
+
+    if (!lightbox || !lightboxImage) {
+        return;
+    }
+
+    lightboxImage.addEventListener(
+        'load',
+        async () => {
+            try {
+                if (
+                    typeof lightboxImage.decode ===
+                    'function'
+                ) {
+                    await lightboxImage.decode();
+                }
+            } catch {
+            }
+
+            lightbox.classList.remove(
+                'is-image-loading'
+            );
+
+            lightbox.classList.add(
+                'is-image-loaded'
+            );
+        }
+    );
+
+    lightboxImage.addEventListener(
+        'error',
+        () => {
+            lightbox.classList.remove(
+                'is-image-loading'
+            );
+        }
+    );
+}
+
 function initialisePortfolioFilters() {
     const filterContainer =
         getElement('portfolioFilters');
@@ -178,6 +387,14 @@ function initialisePortfolioLightbox() {
                     return;
                 }
 
+                lightbox.classList.remove(
+                    'is-image-loaded'
+                );
+
+                lightbox.classList.add(
+                    'is-image-loading'
+                );
+
                 lightboxImage.src =
                     image.src;
 
@@ -254,35 +471,16 @@ function initialiseOurWorkSearch() {
 }
 
 function initialiseImageFallbacks() {
-    document
-        .querySelectorAll('img')
-        .forEach(image => {
-            image.addEventListener(
-                'error',
-                function() {
-                    if (
-                        this.dataset.fallbackUsed ===
-                        'true'
-                    ) {
-                        return;
-                    }
-
-                    this.dataset.fallbackUsed =
-                        'true';
-
-                    this.src =
-                        'assets/images/slide-03.png';
-                }
-            );
-        });
 }
 
 function initialiseOurWorkPage() {
+    initialiseImageFallbacks();
+    initialiseImageLoading();
+    initialiseLightboxImageLoading();
     initialiseBeforeAfterSlider();
     initialisePortfolioFilters();
     initialisePortfolioLightbox();
     initialiseOurWorkSearch();
-    initialiseImageFallbacks();
 }
 
 
