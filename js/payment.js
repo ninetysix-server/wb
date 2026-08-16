@@ -352,7 +352,7 @@ function cancelPayment() {
   }
 
   stopPaymentPolling();
-  window.location.href = '/portal.html';
+  window.location.href = '/orders.html';
 }
 
 function setPaymentLoading(isLoading) {
@@ -434,9 +434,9 @@ function showWaitingMessage() {
     <p>Waiting for payment confirmation...</p>
 
     <p style="font-size: 12px; color: #64748b; margin-top: 8px;">
-      If you completed the payment, check your order status in the customer portal.
+      If you completed the payment, check your order status in the customer orders.
       <br>
-      <a href="/portal.html" style="color: #009B5B;">
+      <a href="/orders.html" style="color: #009B5B;">
         View my orders
       </a>
     </p>
