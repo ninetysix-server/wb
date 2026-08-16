@@ -524,7 +524,7 @@ class CartManager {
             ${this.createItemDetailsHTML(item, true)}
 
             <div class="confirmation-item-footer">
-                <div class="confirmation-quantity"><i class="fas fa-box"></i> Qty: ${item.quantity || 1}</div>
+                <div hidden class="confirmation-quantity"><i class="fas fa-box"></i> Qty: ${item.quantity || 1}</div>
                 <div class="confirmation-item-total">R${total.toFixed(2)}</div>
             </div>
         `;
