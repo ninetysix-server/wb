@@ -1027,3 +1027,179 @@ html {
         scroll-snap-align: start;
     }
 }
+
+.portfolio-item img,
+.work-showcase-card img,
+.kayg-profile-image img,
+.before-after-slider img {
+    opacity: 0;
+    transition:
+        opacity 0.35s ease,
+        transform 0.4s ease;
+}
+
+.portfolio-item.is-image-loaded img,
+.work-showcase-card.is-image-loaded img,
+.kayg-profile-image.is-image-loaded img,
+.before-after-slider.is-image-loaded img {
+    opacity: 1;
+}
+
+.portfolio-item,
+.work-showcase-card,
+.kayg-profile-image,
+.before-after-slider {
+    position: relative;
+}
+
+.portfolio-item:not(.is-image-loaded),
+.work-showcase-card:not(.is-image-loaded),
+.kayg-profile-image:not(.is-image-loaded),
+.before-after-slider:not(.is-image-loaded) {
+    background:
+        linear-gradient(
+            110deg,
+            #edf2f6 8%,
+            #f7f9fb 18%,
+            #edf2f6 33%
+        );
+    background-size: 200% 100%;
+
+    animation:
+        imageLoadingShimmer
+        1.35s
+        linear
+        infinite;
+}
+
+.portfolio-item::before,
+.work-showcase-card::before,
+.kayg-profile-image::before,
+.before-after-slider::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    z-index: 20;
+
+    width: 34px;
+    height: 34px;
+
+    margin-top: -17px;
+    margin-left: -17px;
+
+    border:
+        3px solid
+        rgba(0, 67, 112, 0.14);
+
+    border-top-color: #009b5b;
+    border-radius: 50%;
+
+    opacity: 1;
+    visibility: visible;
+
+    pointer-events: none;
+
+    animation:
+        ourWorkImageSpin
+        0.8s
+        linear
+        infinite;
+
+    transition:
+        opacity 0.25s ease,
+        visibility 0.25s ease;
+}
+
+.portfolio-item.is-image-loaded::before,
+.work-showcase-card.is-image-loaded::before,
+.kayg-profile-image.is-image-loaded::before,
+.before-after-slider.is-image-loaded::before {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.portfolio-item-overlay {
+    z-index: 3;
+}
+
+.before-after-divider,
+.before-after-label,
+.before-after-slider input[type="range"] {
+    z-index: 5;
+}
+
+.portfolio-lightbox::before {
+    content: "";
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    z-index: 2;
+
+    width: 40px;
+    height: 40px;
+
+    margin-top: -20px;
+    margin-left: -20px;
+
+    border:
+        3px solid
+        rgba(255, 255, 255, 0.25);
+
+    border-top-color: #009b5b;
+    border-radius: 50%;
+
+    opacity: 0;
+    visibility: hidden;
+
+    animation:
+        ourWorkImageSpin
+        0.8s
+        linear
+        infinite;
+}
+
+.portfolio-lightbox.is-image-loading::before {
+    opacity: 1;
+    visibility: visible;
+}
+
+.portfolio-lightbox.is-image-loading img {
+    opacity: 0;
+}
+
+.portfolio-lightbox.is-image-loaded img {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+@keyframes ourWorkImageSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes imageLoadingShimmer {
+    to {
+        background-position-x: -200%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-item:not(.is-image-loaded),
+    .work-showcase-card:not(.is-image-loaded),
+    .kayg-profile-image:not(.is-image-loaded),
+    .before-after-slider:not(.is-image-loaded),
+    .portfolio-item::before,
+    .work-showcase-card::before,
+    .kayg-profile-image::before,
+    .before-after-slider::before,
+    .portfolio-lightbox::before {
+        animation-duration: 1.5s;
+    }
+}
+
