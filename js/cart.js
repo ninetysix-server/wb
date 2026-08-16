@@ -1435,26 +1435,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 await cartManager.getCurrentUser();
 
             if (!user) {
-                popup.showToast(
-                    'Please login to proceed',
-                    'error'
+    popup.showToast(
+        'Please login to proceed',
+        'error'
+    );
+
+    popup.closeConfirmation();
+
+    setTimeout(() => {
+
+        const isMobile =
+            window.matchMedia(
+                '(max-width: 768px)'
+            ).matches;
+
+        if (isMobile) {
+            const mobileAuth =
+                document.getElementById(
+                    'mobileAuthContainer'
                 );
 
-                popup.closeConfirmation();
+            mobileAuth?.classList.add(
+                'active'
+            );
+        } else {
+            const desktopAuth =
+                document.getElementById(
+                    'desktopAuthOverlay'
+                );
 
-                setTimeout(() => {
-                    document
-                        .getElementById(
-                            'desktopAuthOverlay'
-                        )
-                        ?.classList.add('active');
+            desktopAuth?.classList.add(
+                'active'
+            );
+        }
 
-                    document.body.style.overflow =
-                        'hidden';
-                }, 500);
+        document.body.style.overflow =
+            'hidden';
 
-                return;
-            }
+    }, 300);
+
+    return;
+}
 
             const printingRequested =
                 checkoutHasPrinting();
