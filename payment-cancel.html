@@ -16,12 +16,11 @@
             padding: 20px;
         }
         .cancel-card {
-            background: white;
-            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0);
+            padding: 60px 0px;
             border-radius: 16px;
             text-align: center;
             max-width: 450px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
         }
         .cancel-icon {
             font-size: 72px;
@@ -49,10 +48,7 @@
             display: inline-block;
             transition: all 0.3s ease;
         }
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,155,91,0.3);
-        }
+
         .home-link {
             color: #009B5B;
             text-decoration: none;
@@ -72,7 +68,7 @@
             <h1>Payment Cancelled</h1>
             <p>You have cancelled the payment. Your order has been saved and you can pay later.</p>
             <div style="display:flex;flex-direction:column;gap:12px;">
-                <a href="orders.html" class="btn-primary"><i class="fas fa-box"></i> View My Orders</a>
+                <a href="orders.html" class="btn-primary">My Orders</a>
                 <a href="index.html" class="home-link">← Back to Home</a>
             </div>
         </div>
