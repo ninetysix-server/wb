@@ -331,7 +331,7 @@ document.addEventListener(
 
                     if (user) {
                         window.location.href =
-                            'portal.html';
+                            'orders.html';
 
                         return;
                     }
