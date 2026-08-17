@@ -9,7 +9,7 @@
 
 .payment-card {
     width: 100%;
-    max-width: 500px;
+    max-width: 700px;
     background: white;
     border-radius: 0px;
     overflow: hidden;
@@ -241,5 +241,17 @@
     }
     .payment-btn {
         width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .payment-container {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    .payment-card {
+        width: 100%;
+        max-width: none;
     }
 }
